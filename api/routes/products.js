@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const product = require("../models/product");
 const Product = require("../models/product");
 
+
+//route for GET request
 router.get("/", (req, res, next) => {
   Product.find()
     .exec()
@@ -17,6 +19,7 @@ router.get("/", (req, res, next) => {
     });
 });
 
+//route for POST request
 router.post("/", (req, res, next) => {
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
@@ -27,14 +30,14 @@ router.post("/", (req, res, next) => {
   });
   product
     .save()
-    .then((result) => {
+    .then(result => {
       console.log(result);
       res.status(201).json({
         message: "Handling POST requests to /products",
         createdProduct: product,
       });
     })
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
       res.status(500).json({
         error: err,
@@ -47,7 +50,7 @@ router.get("/:productId", (req, res, next) => {
   const id = req.params.productId;
   Product.findById(id)
     .exec()
-    .then((doc) => {
+    .then(doc => {
       console.log("From databse", doc);
 
       if (doc) {
@@ -56,7 +59,7 @@ router.get("/:productId", (req, res, next) => {
         res.status(404).json({ message: "Product not found" });
       }
     })
-    .catch((err) => {
+    .catch(err => {
       console.log(err);
       res.status(500).json({ error: err });
     });
