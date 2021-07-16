@@ -11,8 +11,16 @@ router.get('/', (req, res,next) => {
 
 //route for post request
 router.post('/', (req, res,next) => {
+    const order = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        productId: req.body.productId
+    };
+
     res.status(201).json({
-        message: 'Order was created'
+        message: 'Order was created',
+        order: order
     });
 });
 
