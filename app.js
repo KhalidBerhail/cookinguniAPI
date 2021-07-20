@@ -7,6 +7,8 @@ const mongoose = require("mongoose");
 const productRoutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
 
+
+
 //Connecting to our database
 mongoose.connect(
   "mongodb+srv://kurolo:" +
@@ -25,13 +27,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Body parsser middleware for json data
 app.use(bodyParser.json());
 
-//middleware for handling CORS errors
+/*middleware for handling CORS errors*/
 app.use((req, res, next) => {
-  res.header("Access-Controm-Allow-Origin", "*");
-  res.header(
-    "Acces-Controm-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
+  res.header("Access-Control-Allow-Origin", '*');
+  res.header("Access-Control-Allow-Headers","*");
   if (req.method === "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     return res.status(200).json({});
